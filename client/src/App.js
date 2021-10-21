@@ -5,27 +5,29 @@ import bitcoin from './icons/logos_bitcoin.png'
 import AddIcon from './icons/AddIcon'
 import MoreIcon from './icons/MoreIcon'
 import SubtractIcon from './icons/SubtractIcon'
-import React, {useState} from "react"
+import React, { useState } from "react"
 
-
+import Chart from "react-google-charts";
+import ApexCharts from 'apexcharts'
 function App() {
 
   const [priceInput, setPriceInput] = useState()
 
   let onPriceAddClicked = () => {
-    if (priceInput){
-      setPriceInput(parseInt(priceInput)+100)
-    }else{
+    if (priceInput) {
+      setPriceInput(parseInt(priceInput) + 100)
+    } else {
       setPriceInput(100)
     }
   }
 
   let onPriceSubClicked = () => {
-    if (priceInput){
-      setPriceInput(parseInt(priceInput)-100)
-    }else{
+    if (priceInput) {
+      setPriceInput(parseInt(priceInput) - 100)
+    } else {
       setPriceInput(0)
-    }  }
+    }
+  }
 
   let priceInputChange = (e) => {
     setPriceInput(e.target.value)
@@ -37,9 +39,17 @@ function App() {
   let _onBlur = function (e) {
     e.currentTarget.type = "text";
     e.currentTarget.placeholder = "Date";
-    e.currentTarget.min = "2020-01-01" 
-    e.currentTarget.max="2020-03-01"
+    e.currentTarget.min = "2020-01-01"
+    e.currentTarget.max = "2020-03-01"
   }
+
+  let options = {
+    title: 'title',
+    width: 310,
+    height: 260,
+    backgroundColor: '#E4E4E4',
+    is3D: true
+};
   return (
     <div className="demo-app">
       <div className="header">
@@ -50,7 +60,49 @@ function App() {
         <div className="title">
           <h1 className='main-title'>Multimodal Approach <br />for BTC Price <br /> Prediction. <span className='tag'>alpha</span></h1>
           <div className='chart'>
-            <img src={chart} alt='candlestick-chart'></img>
+            <Chart
+              width={'90%'}
+              height={350}
+              chartType="CandlestickChart"
+              loader={<div>Loading Chart</div>}
+              data={[
+                ['day', 'a', 'b', 'c', 'd'],
+                ['1', 20, 28, 38, 45],
+                ['2', 31, 38, 55, 66],
+                ['3', 50, 55, 77, 80],
+                ['4', 77, 77, 66, 50],
+                ['5', 68, 66, 22, 15],
+                ['6', 20, 28, 38, 45],
+                ['7', 31, 38, 55, 66],
+                ['8', 50, 55, 77, 80],
+                ['9', 77, 77, 66, 50],
+                ['10', 68, 66, 22, 15],
+                ['11', 50, 55, 77, 80],
+                ['12', 77, 77, 66, 50],
+                ['13', 68, 66, 22, 15],
+                ['14', 20, 28, 38, 45],
+                ['15', 50, 55, 77, 80],
+                ['16', 77, 77, 66, 50],
+                ['17', 68, 66, 22, 15],
+                ['18', 50, 55, 77, 80],
+                ['19', 31, 38, 55, 66],
+                ['20', 50, 55, 77, 80],
+                ['21', 77, 77, 66, 50],
+                ['22', 68, 66, 22, 15],
+                ['23', 20, 28, 38, 45],
+              ]}
+              options={{
+                legend: 'none',
+                bar: { groupWidth: '100%' }, // Remove space between bars.
+                candlestick: {
+                  fallingColor: { strokeWidth: 0, fill: '#e74c3c' }, // red
+                  risingColor: { strokeWidth: 0, fill: '#2ecc71' }, // green
+                  
+                },
+                backgroundColor: "#ecf0f1",
+              }}
+              rootProps={{ 'data-testid': '2' }}
+            />
           </div>
         </div>
         <div className="description">
@@ -74,7 +126,7 @@ function App() {
           </div>
           <div className='form-input'>
             <div className='date'>
-              <input type="text" onFocus={_onFocus} onBlur={_onBlur} placeholder="Date" max="2020-03-03" min="2020-01-01"/>
+              <input type="text" onFocus={_onFocus} onBlur={_onBlur} placeholder="Date" max="2020-03-03" min="2020-01-01" />
               <span><MoreIcon /></span>
             </div>
             <div className="number">
@@ -90,9 +142,9 @@ function App() {
               <span><MoreIcon /></span>
             </div>
             <div className='submit-button'>
-                <div className='submit'>
-                  <p>Submit</p>
-                </div>
+              <div className='submit'>
+                <p>Submit</p>
+              </div>
             </div>
           </div>
         </div>

@@ -12,12 +12,19 @@
 }
 
 .demo-app .header .title .tag {
+  position: relative;
+  top: -5px;
   background: #F9A43E;
   border-radius: 15px;
   padding: 2px 5px;
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 300;
+  color: #2c3e50;
   line-height: 5;
+}
+
+.demo-app .header .title .chart svg {
+  border-radius: 20px;
 }
 
 .demo-app .header .header-image img {
@@ -203,9 +210,10 @@
           box-shadow: 0 10px 25px rgba(240, 147, 43, 0.25);
   background: #F0932B;
   color: #130F40;
-  padding: 1em 0px;
+  padding: 0.7em 0px;
   text-align: center;
-  border-radius: 5px;
+  margin: 10px 0;
+  border-radius: 8px;
 }
 
 .demo-app .predictor-section .prediction-form .form-input .submit-button .submit p {
