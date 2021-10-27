@@ -27,7 +27,7 @@ function App() {
 
   useEffect(() => {
     console.log()
-    fetch(`http://127.0.0.1:5000/data/2020-04-23`)
+    fetch(`http://backend_1:5000/data/2020-04-23`)
     .then(res => res.json())
     .then(res => {
       setChartData(res.data)
@@ -54,7 +54,7 @@ function App() {
   let onPredictClick = (e) => {
     console.log(dateInput)
     console.log(priceInput)
-    fetch(`http://127.0.0.1:5000/prediction/${dateInput}/${priceInput}`, {mode: 'cors'})
+    fetch(`http://backend-service/prediction/${dateInput}/${priceInput}`, {mode: 'cors'})
     .then(res => res.json())
     .then(res => {
       setYesterdayPrice(res.yesterday_price)
@@ -66,7 +66,7 @@ function App() {
       setRealBenifit(res.real_benifit)
     })
 
-    fetch(`http://127.0.0.1:5000/data/${dateInput}`)
+    fetch(`http://backend-service/data/${dateInput}`)
     .then(res => res.json())
     .then(res => {
       setChartData(res.data)

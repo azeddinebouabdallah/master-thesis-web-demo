@@ -1,0 +1,23 @@
+version: '3.3'
+
+services: 
+  backend:
+    build: ./backend
+    volumes: 
+      - ./backend:/usr/src/backend
+    ports: 
+      - "5000:5000"
+    networks:
+      - net
+  client:
+    build: ./client
+    volumes:
+      - ./client:/usr/src/app
+    ports:
+      - "3000:80"
+    networks:
+      - net
+    links:
+      - "backend:backend"
+networks: 
+  net:

@@ -90,4 +90,4 @@ api.add_resource(ChartData, "/data/<string:date>")
 
 if __name__ == "__main__":
     # change this to False in production.
-    app.run(debug=True)
+    app.run(host='0.0.0.0', debug=True)
