@@ -54,7 +54,7 @@ function App() {
   let onPredictClick = (e) => {
     console.log(dateInput)
     console.log(priceInput)
-    fetch(`http://3.70.181.76/prediction/${dateInput}/${priceInput}`, {mode: 'cors'})
+    fetch(`http://3.70.181.76:5000/prediction/${dateInput}/${priceInput}`, {mode: 'cors'})
     .then(res => res.json())
     .then(res => {
       setYesterdayPrice(res.yesterday_price)
@@ -66,7 +66,7 @@ function App() {
       setRealBenifit(res.real_benifit)
     })
 
-    fetch(`http://3.70.181.76/data/${dateInput}`)
+    fetch(`http://3.70.181.76:5000/data/${dateInput}`)
     .then(res => res.json())
     .then(res => {
       setChartData(res.data)
