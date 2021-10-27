@@ -5,7 +5,7 @@ import bitcoin from './icons/logos_bitcoin.png'
 import AddIcon from './icons/AddIcon'
 import MoreIcon from './icons/MoreIcon'
 import SubtractIcon from './icons/SubtractIcon'
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 
 import Chart from "react-google-charts";
 import ApexCharts from 'apexcharts'
@@ -21,6 +21,19 @@ function App() {
   const [prediectedBenifit, setPredictedBenifit] = useState('')
   const [realBenifit, setRealBenifit] = useState('')
   
+
+  const [chartData, setChartData] = useState()
+  const [loadedChart, setLoadedChart] = useState(false)
+
+  useEffect(() => {
+    console.log()
+    fetch(`http://127.0.0.1:5000/data/2020-04-23`)
+    .then(res => res.json())
+    .then(res => {
+      setChartData(res.data)
+      setLoadedChart(true)
+    })
+  }, [])
 
   let onPriceAddClicked = () => {
     if (priceInput) {
@@ -44,7 +57,6 @@ function App() {
     fetch(`http://127.0.0.1:5000/prediction/${dateInput}/${priceInput}`, {mode: 'cors'})
     .then(res => res.json())
     .then(res => {
-      console.log(res)
       setYesterdayPrice(res.yesterday_price)
       setPredictedPrice(res.predicted_price)
       setRealPrice(res.real_price)
@@ -52,6 +64,13 @@ function App() {
       setPredictedTrend(res.predicted_trend)
       setPredictedBenifit(res.predicted_benifit)
       setRealBenifit(res.real_benifit)
+    })
+
+    fetch(`http://127.0.0.1:5000/data/${dateInput}`)
+    .then(res => res.json())
+    .then(res => {
+      setChartData(res.data)
+      setLoadedChart(true)
     })
   }
 
@@ -92,37 +111,13 @@ function App() {
         <div className="title">
           <h1 className='main-title'>Multimodal Approach <br />for BTC Price <br /> Prediction. <span className='tag'>alpha</span></h1>
           <div className='chart'>
+            {loadedChart ? 
             <Chart
               width={'90%'}
               height={350}
               chartType="CandlestickChart"
               loader={<div>Loading Chart</div>}
-              data={[
-                ['day', 'a', 'b', 'c', 'd'],
-                ['1', 20, 28, 38, 45],
-                ['2', 31, 38, 55, 66],
-                ['3', 50, 55, 77, 80],
-                ['4', 77, 77, 66, 50],
-                ['5', 68, 66, 22, 15],
-                ['6', 20, 28, 38, 45],
-                ['7', 31, 38, 55, 66],
-                ['8', 50, 55, 77, 80],
-                ['9', 77, 77, 66, 50],
-                ['10', 68, 66, 22, 15],
-                ['11', 50, 55, 77, 80],
-                ['12', 77, 77, 66, 50],
-                ['13', 68, 66, 22, 15],
-                ['14', 20, 28, 38, 45],
-                ['15', 50, 55, 77, 80],
-                ['16', 77, 77, 66, 50],
-                ['17', 68, 66, 22, 15],
-                ['18', 50, 55, 77, 80],
-                ['19', 31, 38, 55, 66],
-                ['20', 50, 55, 77, 80],
-                ['21', 77, 77, 66, 50],
-                ['22', 68, 66, 22, 15],
-                ['23', 20, 28, 38, 45],
-              ]}
+              data={chartData}
               options={{
                 legend: 'none',
                 bar: { groupWidth: '100%' }, // Remove space between bars.
@@ -134,7 +129,8 @@ function App() {
                 backgroundColor: "#ecf0f1",
               }}
               rootProps={{ 'data-testid': '2' }}
-            />
+            />: <p>Loading chart</p>
+          }
           </div>
         </div>
         <div className="description">
@@ -158,7 +154,7 @@ function App() {
           </div>
           <div className='form-input'>
             <div className='date'>
-              <input type="text" onFocus={_onFocus} onBlur={_onBlur} placeholder="Date" onChange={dateInputChange} max="2020-03-03" min="2020-01-01" />
+              <input type="text" onFocus={_onFocus} onBlur={_onBlur} placeholder="Date" onChange={dateInputChange} min="2016-10-21" max="2021-01-08" />
               <span><MoreIcon /></span>
             </div>
             <div className="number">
