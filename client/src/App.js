@@ -12,7 +12,7 @@ import ApexCharts from 'apexcharts'
 function App() {
 
   const [priceInput, setPriceInput] = useState()
-  const [dateInput, setDateInput] = useState()
+  const [dateInput, setDateInput] = useState('2020-04-23')
   const [predictedPrice, setPredictedPrice] = useState('')
   const [yesterdayPrice, setYesterdayPrice] = useState('')
   const [realPrice, setRealPrice] = useState('')
@@ -150,7 +150,7 @@ function App() {
           <div className="prediction-form-header">
             <img src={bitcoin} alt='bitcoin icon'></img>
 
-            <p>&nbsp; BTC/USDT</p>
+            <p>&nbsp; BTC/USD</p>
           </div>
           <div className='form-input'>
             <div className='date'>
@@ -176,7 +176,7 @@ function App() {
           </div>
         </div>
         <div className="prediction-output">
-          <p><span>Date:</span> 01-01-2021</p>
+          <p><span>Date:</span> {dateInput}</p>
           <div className="outputs">
             <div className="output-titles">
               <p><span>Previous date price</span>(1 BTC):</p>
