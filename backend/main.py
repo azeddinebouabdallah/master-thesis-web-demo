@@ -1,12 +1,26 @@
 from flask import Flask
 from flask_restful import Api, Resource
 
+import numpy as np
+import pickle5 as pickle
+
+
 app = Flask(__name__)
 api = Api(app)
 
+
 class Prediction(Resource):
     def get(self, name):
-        return {"hello": name}
+        with open("./output/data_predict_1.pkl", 'rb') as f:
+            prediction = pickle.load(f)
+        with open("./real/data_real_1.pkl", 'rb') as f:
+            real = pickle.load(f)
+        with open("./dates/dates.pkl", 'rb') as f:
+            dates = pickle.load(f)
+
+        
+        
+        return {"predictedPrice": name}
 
 api.add_resource(Prediction, "/prediction/<string:name>")
 
