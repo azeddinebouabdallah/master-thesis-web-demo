@@ -12,6 +12,15 @@ import ApexCharts from 'apexcharts'
 function App() {
 
   const [priceInput, setPriceInput] = useState()
+  const [dateInput, setDateInput] = useState()
+  const [predictedPrice, setPredictedPrice] = useState('')
+  const [yesterdayPrice, setYesterdayPrice] = useState('')
+  const [realPrice, setRealPrice] = useState('')
+  const [predictedTrend, setPredictedTrend] = useState('')
+  const [realTrend, setRealTrend] = useState('')
+  const [prediectedBenifit, setPredictedBenifit] = useState('')
+  const [realBenifit, setRealBenifit] = useState('')
+  
 
   let onPriceAddClicked = () => {
     if (priceInput) {
@@ -29,18 +38,41 @@ function App() {
     }
   }
 
+  let onPredictClick = (e) => {
+    console.log(dateInput)
+    console.log(priceInput)
+    fetch(`http://127.0.0.1:5000/prediction/${dateInput}/${priceInput}`, {mode: 'cors'})
+    .then(res => res.json())
+    .then(res => {
+      console.log(res)
+      setYesterdayPrice(res.yesterday_price)
+      setPredictedPrice(res.predicted_price)
+      setRealPrice(res.real_price)
+      setRealTrend(res.real_trend)
+      setPredictedTrend(res.predicted_trend)
+      setPredictedBenifit(res.predicted_benifit)
+      setRealBenifit(res.real_benifit)
+    })
+  }
+
   let priceInputChange = (e) => {
     setPriceInput(e.target.value)
+  }
+  let dateInputChange = (e) => {
+    console.log(dateInput)
+    setDateInput(e.target.value)
+    console.log(dateInput)
   }
 
   let _onFocus = function (e) {
     e.currentTarget.type = "date";
+    e.currentTarget.value = "2020-04-23"
   }
   let _onBlur = function (e) {
     e.currentTarget.type = "text";
     e.currentTarget.placeholder = "Date";
-    e.currentTarget.min = "2020-01-01"
-    e.currentTarget.max = "2020-03-01"
+    e.currentTarget.min = "2016-10-21"
+    e.currentTarget.max = "2021-01-08"
   }
 
   let options = {
@@ -126,7 +158,7 @@ function App() {
           </div>
           <div className='form-input'>
             <div className='date'>
-              <input type="text" onFocus={_onFocus} onBlur={_onBlur} placeholder="Date" max="2020-03-03" min="2020-01-01" />
+              <input type="text" onFocus={_onFocus} onBlur={_onBlur} placeholder="Date" onChange={dateInputChange} max="2020-03-03" min="2020-01-01" />
               <span><MoreIcon /></span>
             </div>
             <div className="number">
@@ -137,13 +169,12 @@ function App() {
             <div className="dropdown" placeholder="Model">
               <select>
                 <option value='my-approach'>Full Model</option>
-                <option value='lstm'>Only trading data</option>
               </select>
               <span><MoreIcon /></span>
             </div>
             <div className='submit-button'>
-              <div className='submit'>
-                <p>Submit</p>
+              <div className='submit' onClick={onPredictClick}>
+                <p>Predict</p>
               </div>
             </div>
           </div>
@@ -152,20 +183,22 @@ function App() {
           <p><span>Date:</span> 01-01-2021</p>
           <div className="outputs">
             <div className="output-titles">
-              <p><span>Predicted Price</span>(1 BTC):</p>
-              <p><span>Predicted Trend</span>(1 BTC):</p>
-              <p><span>Read Price</span>(1 BTC):</p>
-              <p><span>Read Trend</span>(1 BTC):</p>
-              <p><span>Predicted Benifits</span>:</p>
-              <p><span>Real Benifits</span>:</p>
+              <p><span>Previous date price</span>(1 BTC):</p>
+              <p><span>Predicted price</span>(1 BTC):</p>
+              <p><span>Predicted trend</span>(1 BTC):</p>
+              <p><span>Real price</span>(1 BTC):</p>
+              <p><span>Real trend</span>(1 BTC):</p>
+              <p><span>Predicted benifits</span>:</p>
+              <p><span>Real benifits</span>:</p>
             </div>
             <div className="output-content">
-              <p className="btc-price-up">12,301.21$</p>
-              <p className="btc-trend-up">UP</p>
-              <p className="btc-price-down">12,301.21$</p>
-              <p className="btc-trend-down">DOWN</p>
-              <p className="btc-benifits">301.21$</p>
-              <p className="btc-benifits">301.21$</p>
+              <p className="btc-benifits">{yesterdayPrice}$</p>
+              <p className={predictedTrend === "up" ? "btc-price-up" : "btc-price-down"}>{predictedPrice}$</p>
+              <p className={predictedTrend === "up" ? "btc-trend-up" : "btc-trend-down"}>{predictedTrend}</p>
+              <p className={realTrend === 'up' ? "btc-price-up": "btc-price-down"}>{realPrice}</p>
+              <p className={realTrend === 'up' ? "btc-trend-up": "btc-trend-down"}>{realTrend}</p>
+              <p className="btc-benifits">{prediectedBenifit}$</p>
+              <p className="btc-benifits">{realBenifit}$</p>
             </div>
           </div>
         </div>

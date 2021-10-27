@@ -205,6 +205,7 @@
 }
 
 .demo-app .predictor-section .prediction-form .form-input .submit-button .submit {
+  cursor: pointer;
   width: 70%;
   -webkit-box-shadow: 0 10px 25px rgba(240, 147, 43, 0.25);
           box-shadow: 0 10px 25px rgba(240, 147, 43, 0.25);
