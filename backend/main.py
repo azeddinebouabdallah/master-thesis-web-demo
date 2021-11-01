@@ -44,7 +44,7 @@ class Prediction(Resource):
             predictedPrice_model_2 = prediction_model_2[index][0][0]
 
 
-            yesterdayPrice = real[index][0][0]
+            yesterdayPrice = real[index-1][0][0]
             
             # today's price * 100 / yesterday's price = new percentage
             realDiffPercentage = ((realPrice * 100) / yesterdayPrice) - 100 
