@@ -194,7 +194,7 @@ function App() {
               <p><span>Real difference</span></p>
             </div>
             <div className="output-content">
-              <p>Model</p>
+              <p>My approach</p>
               <p className="btc-benifits">{yesterdayPrice}$</p>
               <p className={predictedTrend === "up" ? "btc-price-up" : "btc-price-down"}>{predictedPrice}$</p>
               <p className={predictedTrend === "up" ? "btc-trend-up" : "btc-trend-down"}>{predictedTrend}</p>
@@ -217,7 +217,7 @@ function App() {
               <p><span>Real difference</span></p>
             </div>
             <div className="output-content">
-              <p>Model</p>
+              <p>(Mudassir, M. et al)</p>
               <p className="btc-benifits">{yesterdayPrice}$</p>
               <p className={predictedTrendModel2 === "up" ? "btc-price-up" : "btc-price-down"}>{predictedPriceModel2}$</p>
               <p className={predictedTrendModel2 === "up" ? "btc-trend-up" : "btc-trend-down"}>{predictedTrendModel2}</p>
@@ -241,7 +241,7 @@ function App() {
               <p><span>Real difference</span></p>
             </div>
             <div className="output-content">
-              <p>Full model</p>
+              <p>(Uras, N. et al)</p>
               <p className="btc-benifits">{yesterdayPrice}$</p>
               <p className={predictedTrendModel3 === "up" ? "btc-price-up" : "btc-price-down"}>{predictedPriceModel3}$</p>
               <p className={predictedTrendModel3 === "up" ? "btc-trend-up" : "btc-trend-down"}>{predictedTrendModel3}</p>
