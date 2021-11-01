@@ -41,7 +41,7 @@ function App() {
     .then(res => {
       setChartData(res.data)
       setLoadedChart(true)
-      document.getElementById("mydatepicker").defaultValue = "2020-05-09"; 
+      document.getElementById("mydatepicker").defaultValue = "2020-01-15"; 
     })
   }, [])
 
