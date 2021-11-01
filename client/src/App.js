@@ -36,7 +36,7 @@ function App() {
 
   useEffect(() => {
     console.log()
-    fetch(`http://3.122.104.116:5000/api/data/2020-04-23`)
+    fetch(`http://3.122.104.116:5000/data/2020-04-23`)
     .then(res => res.json())
     .then(res => {
       setChartData(res.data)
