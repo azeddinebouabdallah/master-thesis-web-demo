@@ -164,7 +164,7 @@ function App() {
           <div className='form-input'>
             <div className='form-input-container'>
             <div className='date'>
-              <input type="date" onFocus={_onFocus} onBlur={_onBlur} placeholder="Date" onChange={dateInputChange} min="2016-10-21" max="2021-01-08" />
+              <input type="date" onFocus={_onFocus} onBlur={_onBlur} placeholder="Date" onChange={dateInputChange} min="2016-10-21" max="2021-01-08" value="2020-04-23" />
               <span><MoreIcon /></span>
             </div>
             <div className="number">
@@ -219,8 +219,8 @@ function App() {
             <div className="output-content">
               <p>Model</p>
               <p className="btc-benifits">{yesterdayPrice}$</p>
-              <p className={predictedTrend === "up" ? "btc-price-up" : "btc-price-down"}>{predictedPriceModel2}$</p>
-              <p className={predictedTrend === "up" ? "btc-trend-up" : "btc-trend-down"}>{predictedTrendModel2}</p>
+              <p className={predictedTrendModel2 === "up" ? "btc-price-up" : "btc-price-down"}>{predictedPriceModel2}$</p>
+              <p className={predictedTrendModel2 === "up" ? "btc-trend-up" : "btc-trend-down"}>{predictedTrendModel2}</p>
               <p className={realTrend === 'up' ? "btc-price-up": "btc-price-down"}>{realPrice}$</p>
               <p className={realTrend === 'up' ? "btc-trend-up": "btc-trend-down"}>{realTrend}</p>
               <p className="btc-benifits">{prediectedBenifitModel2}$</p>
@@ -243,8 +243,8 @@ function App() {
             <div className="output-content">
               <p>Full model</p>
               <p className="btc-benifits">{yesterdayPrice}$</p>
-              <p className={predictedTrend === "up" ? "btc-price-up" : "btc-price-down"}>{predictedPriceModel3}$</p>
-              <p className={predictedTrend === "up" ? "btc-trend-up" : "btc-trend-down"}>{predictedTrendModel3}</p>
+              <p className={predictedTrendModel3 === "up" ? "btc-price-up" : "btc-price-down"}>{predictedPriceModel3}$</p>
+              <p className={predictedTrendModel3 === "up" ? "btc-trend-up" : "btc-trend-down"}>{predictedTrendModel3}</p>
               <p className={realTrend === 'up' ? "btc-price-up": "btc-price-down"}>{realPrice}$</p>
               <p className={realTrend === 'up' ? "btc-trend-up": "btc-trend-down"}>{realTrend}</p>
               <p className="btc-benifits">{prediectedBenifitModel3}$</p>
