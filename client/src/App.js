@@ -100,11 +100,8 @@ function App() {
   }
 
   let _onFocus = function (e) {
-    e.currentTarget.type = "date";
-    e.currentTarget.value = "2020-04-23"
   }
   let _onBlur = function (e) {
-    e.currentTarget.placeholder = "Date";
     e.currentTarget.min = "2016-10-21"
     e.currentTarget.max = "2021-01-08"
   }
@@ -194,7 +191,7 @@ function App() {
               <p><span>Real difference</span></p>
             </div>
             <div className="output-content">
-              <p>My approach</p>
+              <p>(Uras, N. et al)</p>
               <p className="btc-benifits">{yesterdayPrice}$</p>
               <p className={predictedTrend === "up" ? "btc-price-up" : "btc-price-down"}>{predictedPrice}$</p>
               <p className={predictedTrend === "up" ? "btc-trend-up" : "btc-trend-down"}>{predictedTrend}</p>
@@ -241,7 +238,7 @@ function App() {
               <p><span>Real difference</span></p>
             </div>
             <div className="output-content">
-              <p>(Uras, N. et al)</p>
+              <p>My approach</p>
               <p className="btc-benifits">{yesterdayPrice}$</p>
               <p className={predictedTrendModel3 === "up" ? "btc-price-up" : "btc-price-down"}>{predictedPriceModel3}$</p>
               <p className={predictedTrendModel3 === "up" ? "btc-trend-up" : "btc-trend-down"}>{predictedTrendModel3}</p>
