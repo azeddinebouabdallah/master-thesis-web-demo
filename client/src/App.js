@@ -27,7 +27,7 @@ function App() {
 
   useEffect(() => {
     console.log()
-    fetch(`https://bit.ai-research.net/api/data/2020-04-23`)
+    fetch(`https://3.122.104.116:5000/api/data/2020-04-23`)
     .then(res => res.json())
     .then(res => {
       setChartData(res.data)
@@ -54,7 +54,7 @@ function App() {
   let onPredictClick = (e) => {
     console.log(dateInput)
     console.log(priceInput)
-    fetch(`https://bit.ai-research.net/api/prediction/${dateInput}/${priceInput}`, {mode: 'cors'})
+    fetch(`https://3.122.104.116:5000/prediction/${dateInput}/${priceInput}`, {mode: 'cors'})
     .then(res => res.json())
     .then(res => {
       setYesterdayPrice(res.yesterday_price)
@@ -66,7 +66,7 @@ function App() {
       setRealBenifit(res.real_benifit)
     })
 
-    fetch(`https://bit.ai-research.net/api/data/${dateInput}`)
+    fetch(`https://3.122.104.116:5000/data/${dateInput}`)
     .then(res => res.json())
     .then(res => {
       setChartData(res.data)
