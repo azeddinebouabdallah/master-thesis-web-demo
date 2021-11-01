@@ -217,12 +217,13 @@ function App() {
             <div className="output-content">
               <p>(Mudassir, M. et al)</p>
               <p className="btc-benifits">{yesterdayPrice}$</p>
-              <p className={predictedTrendModel2 === "up" ? "btc-price-up" : "btc-price-down"}>{predictedPriceModel2}$</p>
-              <p className={predictedTrendModel2 === "up" ? "btc-trend-up" : "btc-trend-down"}>{predictedTrendModel2}</p>
+              <p className={predictedTrendModel3 === "up" ? "btc-price-up" : "btc-price-down"}>{predictedPriceModel3}$</p>
+              <p className={predictedTrendModel3 === "up" ? "btc-trend-up" : "btc-trend-down"}>{predictedTrendModel3}</p>
               <p className={realTrend === 'up' ? "btc-price-up": "btc-price-down"}>{realPrice}$</p>
               <p className={realTrend === 'up' ? "btc-trend-up": "btc-trend-down"}>{realTrend}</p>
-              <p className="btc-benifits">{prediectedBenifitModel2}$</p>
+              <p className="btc-benifits">{prediectedBenifitModel3}$</p>
               <p className="btc-benifits">{realBenifit}$</p>
+              
             </div>
           </div>
           {/* second's output*/ }
@@ -241,11 +242,11 @@ function App() {
             <div className="output-content">
               <p>My approach</p>
               <p className="btc-benifits">{yesterdayPrice}$</p>
-              <p className={predictedTrendModel3 === "up" ? "btc-price-up" : "btc-price-down"}>{predictedPriceModel3}$</p>
-              <p className={predictedTrendModel3 === "up" ? "btc-trend-up" : "btc-trend-down"}>{predictedTrendModel3}</p>
+              <p className={predictedTrendModel2 === "up" ? "btc-price-up" : "btc-price-down"}>{predictedPriceModel2}$</p>
+              <p className={predictedTrendModel2 === "up" ? "btc-trend-up" : "btc-trend-down"}>{predictedTrendModel2}</p>
               <p className={realTrend === 'up' ? "btc-price-up": "btc-price-down"}>{realPrice}$</p>
               <p className={realTrend === 'up' ? "btc-trend-up": "btc-trend-down"}>{realTrend}</p>
-              <p className="btc-benifits">{prediectedBenifitModel3}$</p>
+              <p className="btc-benifits">{prediectedBenifitModel2}$</p>
               <p className="btc-benifits">{realBenifit}$</p>
             </div>
           </div>
