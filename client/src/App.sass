@@ -39,11 +39,12 @@
                 margin-bottom: 40px
     .predictor-section
         background: #26396B
-        width: 800px
+        width: 1200px
         margin: 50px auto
         border-radius: 15px
         display: grid
-        grid-template-columns: 50% 50%
+        grid-template-columns: 1fr
+        grid-row-gap: 50px
         padding: 40px
         .prediction-form
             .prediction-form-header
@@ -54,11 +55,13 @@
                 p
                     display: inline-block
                     font-weight: 800
-            .form-input
+            
+            .form-input-container
                 display: grid
+                margin: 0 auto
                 .date
                     position: relative
-                    width: 70%
+                    width: 100%
                     margin: 10px 0px
                     display: flex
                     align-items: center
@@ -81,7 +84,7 @@
                         transform: scale(2.3)
                 .number
                     position: relative
-                    width: 70%
+                    width: 100%
                     margin: 10px 0px
                     display: flex
                     align-items: center
@@ -141,7 +144,7 @@
                 .submit-button
                     .submit
                         cursor: pointer
-                        width: 70%
+                        width: 100%
                         box-shadow: 0 10px 25px rgba(240, 147, 43, 0.25)
                         background: #F0932B
                         color: #130F40
@@ -154,10 +157,14 @@
                             margin: 0
 
         .prediction-output
-            p>span
-                font-weight: bold
-                font-size: 1.1rem
+            display: grid
+            grid-template-columns: 1fr 1fr 1fr
+           
             .outputs
+                p>span
+                    display: block
+                    font-weight: bold
+                    font-size: 1.1rem
                 display: grid
                 grid-template-columns: 60% 1fr
                 .output-titles

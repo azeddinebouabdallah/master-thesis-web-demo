@@ -51,13 +51,14 @@
 
 .demo-app .predictor-section {
   background: #26396B;
-  width: 800px;
+  width: 1200px;
   margin: 50px auto;
   border-radius: 15px;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 50% 50%;
-      grid-template-columns: 50% 50%;
+  -ms-grid-columns: 1fr;
+      grid-template-columns: 1fr;
+  grid-row-gap: 50px;
   padding: 40px;
 }
 
@@ -79,14 +80,15 @@
   font-weight: 800;
 }
 
-.demo-app .predictor-section .prediction-form .form-input {
+.demo-app .predictor-section .prediction-form .form-input-container {
   display: -ms-grid;
   display: grid;
+  margin: 0 auto;
 }
 
-.demo-app .predictor-section .prediction-form .form-input .date {
+.demo-app .predictor-section .prediction-form .form-input-container .date {
   position: relative;
-  width: 70%;
+  width: 100%;
   margin: 10px 0px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -96,7 +98,7 @@
           align-items: center;
 }
 
-.demo-app .predictor-section .prediction-form .form-input .date input {
+.demo-app .predictor-section .prediction-form .form-input-container .date input {
   background: #0D0A2F;
   color: white;
   -webkit-box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
@@ -108,7 +110,7 @@
   border-radius: 5px;
 }
 
-.demo-app .predictor-section .prediction-form .form-input .date span {
+.demo-app .predictor-section .prediction-form .form-input-container .date span {
   position: absolute;
   top: 0px;
   right: 15px;
@@ -118,9 +120,9 @@
           transform: scale(2.3);
 }
 
-.demo-app .predictor-section .prediction-form .form-input .number {
+.demo-app .predictor-section .prediction-form .form-input-container .number {
   position: relative;
-  width: 70%;
+  width: 100%;
   margin: 10px 0px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -130,7 +132,7 @@
           align-items: center;
 }
 
-.demo-app .predictor-section .prediction-form .form-input .number input {
+.demo-app .predictor-section .prediction-form .form-input-container .number input {
   background: #0D0A2F;
   color: white;
   -webkit-box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
@@ -147,7 +149,7 @@
   border-radius: 5px;
 }
 
-.demo-app .predictor-section .prediction-form .form-input .number .add {
+.demo-app .predictor-section .prediction-form .form-input-container .number .add {
   position: absolute;
   top: 5px;
   right: 15px;
@@ -157,7 +159,7 @@
   cursor: pointer;
 }
 
-.demo-app .predictor-section .prediction-form .form-input .number .sub {
+.demo-app .predictor-section .prediction-form .form-input-container .number .sub {
   position: absolute;
   top: 0px;
   left: 15px;
@@ -167,7 +169,7 @@
   cursor: pointer;
 }
 
-.demo-app .predictor-section .prediction-form .form-input .dropdown {
+.demo-app .predictor-section .prediction-form .form-input-container .dropdown {
   position: relative;
   width: 70%;
   margin: 10px 0px;
@@ -179,7 +181,7 @@
           align-items: center;
 }
 
-.demo-app .predictor-section .prediction-form .form-input .dropdown select {
+.demo-app .predictor-section .prediction-form .form-input-container .dropdown select {
   background: #0D0A2F;
   color: white;
   -webkit-box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
@@ -194,7 +196,7 @@
   border-radius: 5px;
 }
 
-.demo-app .predictor-section .prediction-form .form-input .dropdown span {
+.demo-app .predictor-section .prediction-form .form-input-container .dropdown span {
   position: absolute;
   top: 0px;
   right: 15px;
@@ -204,9 +206,9 @@
           transform: scale(2.3);
 }
 
-.demo-app .predictor-section .prediction-form .form-input .submit-button .submit {
+.demo-app .predictor-section .prediction-form .form-input-container .submit-button .submit {
   cursor: pointer;
-  width: 70%;
+  width: 100%;
   -webkit-box-shadow: 0 10px 25px rgba(240, 147, 43, 0.25);
           box-shadow: 0 10px 25px rgba(240, 147, 43, 0.25);
   background: #F0932B;
@@ -217,14 +219,16 @@
   border-radius: 8px;
 }
 
-.demo-app .predictor-section .prediction-form .form-input .submit-button .submit p {
+.demo-app .predictor-section .prediction-form .form-input-container .submit-button .submit p {
   padding: 0;
   margin: 0;
 }
 
-.demo-app .predictor-section .prediction-output p > span {
-  font-weight: bold;
-  font-size: 1.1rem;
+.demo-app .predictor-section .prediction-output {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
 }
 
 .demo-app .predictor-section .prediction-output .outputs {
@@ -232,6 +236,12 @@
   display: grid;
   -ms-grid-columns: 60% 1fr;
       grid-template-columns: 60% 1fr;
+}
+
+.demo-app .predictor-section .prediction-output .outputs p > span {
+  display: block;
+  font-weight: bold;
+  font-size: 1.1rem;
 }
 
 .demo-app .predictor-section .prediction-output .outputs .output-titles {

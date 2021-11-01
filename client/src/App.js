@@ -27,7 +27,7 @@ function App() {
 
   useEffect(() => {
     console.log()
-    fetch(`https://3.122.104.116:5000/api/data/2020-04-23`)
+    fetch(`http://3.122.104.116:5000/api/data/2020-04-23`)
     .then(res => res.json())
     .then(res => {
       setChartData(res.data)
@@ -54,7 +54,7 @@ function App() {
   let onPredictClick = (e) => {
     console.log(dateInput)
     console.log(priceInput)
-    fetch(`https://3.122.104.116:5000/prediction/${dateInput}/${priceInput}`, {mode: 'cors'})
+    fetch(`http://3.122.104.116:5000/prediction/${dateInput}/${priceInput}`, {mode: 'cors'})
     .then(res => res.json())
     .then(res => {
       setYesterdayPrice(res.yesterday_price)
@@ -66,7 +66,7 @@ function App() {
       setRealBenifit(res.real_benifit)
     })
 
-    fetch(`https://3.122.104.116:5000/data/${dateInput}`)
+    fetch(`http://3.122.104.116:5000/data/${dateInput}`)
     .then(res => res.json())
     .then(res => {
       setChartData(res.data)
@@ -136,12 +136,6 @@ function App() {
           <h2 className='description-title'>
             Robust and effective method for bitcoin price prediction using a novel mutlimodal  deep learning approach.
           </h2>
-          <p className='description-content'>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc volutpat in mauris id dictum eu ligula. Vestibulum risus aenean mollis sed fames ullamcorper cras pulvinar amet. Posuere vel dictum ante tincidunt. Quisque mattis facilisis dapibus sodales turpis tristique venenatis, aliquam ultrices.
-          </p>
-          <p className='description-content'>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc volutpat in mauris id dictum eu ligula.
-          </p>
         </div>
       </div>
       <div className='predictor-section'>
@@ -152,6 +146,7 @@ function App() {
             <p>&nbsp; BTC/USD</p>
           </div>
           <div className='form-input'>
+            <div className='form-input-container'>
             <div className='date'>
               <input type="date" onFocus={_onFocus} onBlur={_onBlur} placeholder="Date" onChange={dateInputChange} min="2016-10-21" max="2021-01-08" />
               <span><MoreIcon /></span>
@@ -161,36 +156,80 @@ function App() {
               <input type='number' className="price-input" placeholder="Invested price" value={priceInput} onChange={priceInputChange}></input>
               <span className="add" onClick={onPriceAddClicked}><AddIcon /></span>
             </div>
-            <div className="dropdown" placeholder="Model">
-              <select>
-                <option value='my-approach'>Full Model</option>
-              </select>
-              <span><MoreIcon /></span>
-            </div>
             <div className='submit-button'>
               <div className='submit' onClick={onPredictClick}>
                 <p>Predict</p>
               </div>
             </div>
           </div>
+          </div>
         </div>
         <div className="prediction-output">
-          <p><span>Date:</span> {dateInput}</p>
+          {/* My model's output*/ }
           <div className="outputs">
             <div className="output-titles">
-              <p><span>Previous date price</span>(1 BTC):</p>
-              <p><span>Predicted price</span>(1 BTC):</p>
-              <p><span>Predicted trend</span>(1 BTC):</p>
-              <p><span>Real price</span>(1 BTC):</p>
-              <p><span>Real trend</span>(1 BTC):</p>
-              <p><span>Predicted benifits</span>:</p>
-              <p><span>Real benifits</span>:</p>
+             <p><span>Model</span></p>
+              <p><span>Previous date price</span></p>
+              <p><span>Predicted price</span></p>
+              <p><span>Predicted trend</span></p>
+              <p><span>Real price</span></p>
+              <p><span>Real trend</span></p>
+              <p><span>Predicted difference</span></p>
+              <p><span>Real difference</span></p>
             </div>
             <div className="output-content">
+              <p>Model</p>
               <p className="btc-benifits">{yesterdayPrice}$</p>
               <p className={predictedTrend === "up" ? "btc-price-up" : "btc-price-down"}>{predictedPrice}$</p>
               <p className={predictedTrend === "up" ? "btc-trend-up" : "btc-trend-down"}>{predictedTrend}</p>
-              <p className={realTrend === 'up' ? "btc-price-up": "btc-price-down"}>{realPrice}</p>
+              <p className={realTrend === 'up' ? "btc-price-up": "btc-price-down"}>{realPrice}$</p>
+              <p className={realTrend === 'up' ? "btc-trend-up": "btc-trend-down"}>{realTrend}</p>
+              <p className="btc-benifits">{prediectedBenifit}$</p>
+              <p className="btc-benifits">{realBenifit}$</p>
+            </div>
+          </div>
+          {/* First model's output*/ }
+          <div className="outputs">
+            <div className="output-titles">
+             <p><span>Model</span></p>
+              <p><span>Previous date price</span></p>
+              <p><span>Predicted price</span></p>
+              <p><span>Predicted trend</span></p>
+              <p><span>Real price</span></p>
+              <p><span>Real trend</span></p>
+              <p><span>Predicted difference</span></p>
+              <p><span>Real difference</span></p>
+            </div>
+            <div className="output-content">
+              <p>Model</p>
+              <p className="btc-benifits">{yesterdayPrice}$</p>
+              <p className={predictedTrend === "up" ? "btc-price-up" : "btc-price-down"}>{predictedPrice}$</p>
+              <p className={predictedTrend === "up" ? "btc-trend-up" : "btc-trend-down"}>{predictedTrend}</p>
+              <p className={realTrend === 'up' ? "btc-price-up": "btc-price-down"}>{realPrice}$</p>
+              <p className={realTrend === 'up' ? "btc-trend-up": "btc-trend-down"}>{realTrend}</p>
+              <p className="btc-benifits">{prediectedBenifit}$</p>
+              <p className="btc-benifits">{realBenifit}$</p>
+            </div>
+          </div>
+          {/* second's output*/ }
+          <div className="outputs">
+            
+            <div className="output-titles">
+             <p><span>Model</span></p>
+              <p><span>Previous date price</span></p>
+              <p><span>Predicted price</span></p>
+              <p><span>Predicted trend</span></p>
+              <p><span>Real price</span></p>
+              <p><span>Real trend</span></p>
+              <p><span>Predicted difference</span></p>
+              <p><span>Real difference</span></p>
+            </div>
+            <div className="output-content">
+              <p>Full model</p>
+              <p className="btc-benifits">{yesterdayPrice}$</p>
+              <p className={predictedTrend === "up" ? "btc-price-up" : "btc-price-down"}>{predictedPrice}$</p>
+              <p className={predictedTrend === "up" ? "btc-trend-up" : "btc-trend-down"}>{predictedTrend}</p>
+              <p className={realTrend === 'up' ? "btc-price-up": "btc-price-down"}>{realPrice}$</p>
               <p className={realTrend === 'up' ? "btc-trend-up": "btc-trend-down"}>{realTrend}</p>
               <p className="btc-benifits">{prediectedBenifit}$</p>
               <p className="btc-benifits">{realBenifit}$</p>
