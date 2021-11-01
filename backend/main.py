@@ -101,11 +101,11 @@ class Prediction(Resource):
                 "predicted_price_model2": "{:.2f}".format(predictedPrice_model_1),
                 "predicted_trend_model2": predictedTrend_model_1,
                 "predicted_benifit_model2": "{:.4f}".format(predictedBenifit_model_1),
-                "predicted_percentage_increase_model_2": "{:.4f}".format(predictedDiffPercentage_model_1),
+                "predicted_percentage_increase_model2": "{:.4f}".format(predictedDiffPercentage_model_1),
                 "predicted_price_model3": "{:.2f}".format(predictedPrice_model_2),
                 "predicted_trend_model3": predictedTrend_model_2,
                 "predicted_benifit_model3": "{:.4f}".format(predictedBenifit_model_2),
-                "predicted_percentage_increase_model_3": "{:.4f}".format(predictedDiffPercentage_model_2),
+                "predicted_percentage_increase_model3": "{:.4f}".format(predictedDiffPercentage_model_2),
             }
 
 class ChartData(Resource):

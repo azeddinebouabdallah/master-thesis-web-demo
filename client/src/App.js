@@ -20,6 +20,15 @@ function App() {
   const [realTrend, setRealTrend] = useState('')
   const [prediectedBenifit, setPredictedBenifit] = useState('')
   const [realBenifit, setRealBenifit] = useState('')
+
+
+  const [predictedPriceModel2, setPredictedPriceModel2] = useState('')
+  const [predictedTrendModel2, setPredictedTrendModel2] = useState('')
+  const [prediectedBenifitModel2, setPredictedBenifitModel2] = useState('')
+  const [predictedPriceModel3, setPredictedPriceModel3] = useState('')
+  const [predictedTrendModel3, setPredictedTrendModel3] = useState('')
+  const [prediectedBenifitModel3, setPredictedBenifitModel3] = useState('')
+
   
 
   const [chartData, setChartData] = useState()
@@ -64,6 +73,13 @@ function App() {
       setPredictedTrend(res.predicted_trend)
       setPredictedBenifit(res.predicted_benifit)
       setRealBenifit(res.real_benifit)
+
+      setPredictedPriceModel2(res.predicted_price_model2)
+      setPredictedTrendModel2(res.predicted_trend_model2)
+      setPredictedBenifitModel2(res.predicted_benifit_model2)
+      setPredictedPriceModel3(res.predicted_price_model3)
+      setPredictedTrendModel3(res.predicted_trend_model3)
+      setPredictedBenifitModel3(res.predicted_benifit_model3)
     })
 
     fetch(`http://3.122.104.116:5000/data/${dateInput}`)
@@ -203,11 +219,11 @@ function App() {
             <div className="output-content">
               <p>Model</p>
               <p className="btc-benifits">{yesterdayPrice}$</p>
-              <p className={predictedTrend === "up" ? "btc-price-up" : "btc-price-down"}>{predictedPrice}$</p>
-              <p className={predictedTrend === "up" ? "btc-trend-up" : "btc-trend-down"}>{predictedTrend}</p>
+              <p className={predictedTrend === "up" ? "btc-price-up" : "btc-price-down"}>{predictedPriceModel2}$</p>
+              <p className={predictedTrend === "up" ? "btc-trend-up" : "btc-trend-down"}>{predictedTrendModel2}</p>
               <p className={realTrend === 'up' ? "btc-price-up": "btc-price-down"}>{realPrice}$</p>
               <p className={realTrend === 'up' ? "btc-trend-up": "btc-trend-down"}>{realTrend}</p>
-              <p className="btc-benifits">{prediectedBenifit}$</p>
+              <p className="btc-benifits">{prediectedBenifitModel2}$</p>
               <p className="btc-benifits">{realBenifit}$</p>
             </div>
           </div>
@@ -227,11 +243,11 @@ function App() {
             <div className="output-content">
               <p>Full model</p>
               <p className="btc-benifits">{yesterdayPrice}$</p>
-              <p className={predictedTrend === "up" ? "btc-price-up" : "btc-price-down"}>{predictedPrice}$</p>
-              <p className={predictedTrend === "up" ? "btc-trend-up" : "btc-trend-down"}>{predictedTrend}</p>
+              <p className={predictedTrend === "up" ? "btc-price-up" : "btc-price-down"}>{predictedPriceModel3}$</p>
+              <p className={predictedTrend === "up" ? "btc-trend-up" : "btc-trend-down"}>{predictedTrendModel3}</p>
               <p className={realTrend === 'up' ? "btc-price-up": "btc-price-down"}>{realPrice}$</p>
               <p className={realTrend === 'up' ? "btc-trend-up": "btc-trend-down"}>{realTrend}</p>
-              <p className="btc-benifits">{prediectedBenifit}$</p>
+              <p className="btc-benifits">{prediectedBenifitModel3}$</p>
               <p className="btc-benifits">{realBenifit}$</p>
             </div>
           </div>
