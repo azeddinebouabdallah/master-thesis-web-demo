@@ -215,7 +215,7 @@ function App() {
               <p><span>Real difference</span></p>
             </div>
             <div className="output-content">
-              <p>(Mudassir, M. et al)</p>
+              <p>(R. K. Alkhodhairi)</p>
               <p className="btc-benifits">{yesterdayPrice}$</p>
               <p className={predictedTrendModel3 === "up" ? "btc-price-up" : "btc-price-down"}>{predictedPriceModel3}$</p>
               <p className={predictedTrendModel3 === "up" ? "btc-trend-up" : "btc-trend-down"}>{predictedTrendModel3}</p>
