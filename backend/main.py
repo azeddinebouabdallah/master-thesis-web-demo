@@ -38,7 +38,7 @@ class Prediction(Resource):
             }
         else:
             index = dateIndexes[0] + 1
-            predictedPrice = prediction[index][0][0]
+            predictedPrice = prediction[index]
             realPrice = real[index][0][0]
             predictedPrice_model_1 = prediction_model_1[index][0][0]
             predictedPrice_model_2 = prediction_model_2[index][0][0]
