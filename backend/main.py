@@ -90,7 +90,7 @@ class Prediction(Resource):
                 "date": str(date),
                 "invested_price": price,
                 "yesterday_price": "{:.2f}".format(yesterdayPrice),
-                "predicted_price": "{:.2f}".format(predictedPrice),
+                "predicted_price": "{:.2f}".format(str(predictedPrice)),
                 "real_price": "{:.2f}".format(realPrice),
                 "predicted_trend": predictedTrend,
                 "real_trend": realTrend,
