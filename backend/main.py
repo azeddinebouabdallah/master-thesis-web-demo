@@ -19,7 +19,7 @@ class Prediction(Resource):
     def get(self, date, price):
         randI = random.randint(1, 10)
         print(randI)
-        with open("./output/data_predict_{}.pkl".format(randI), 'rb') as f:
+        with open("./output/adaboostlstmall.pkl".format(randI), 'rb') as f:
             prediction = pickle.load(f)
         with open("./output/data_predict_model_1.pkl", 'rb') as f:
             prediction_model_1 = pickle.load(f)
@@ -32,7 +32,7 @@ class Prediction(Resource):
 
         dateIndexes = np.where(dates == date) 
 
-        if (len(dateIndexes) == 0) :
+        if (len(dateIndexes) == 0):
             return {
                 "Error": "No date"
             }
