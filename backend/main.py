@@ -38,7 +38,7 @@ class Prediction(Resource):
             }
         else:
             index = dateIndexes[0] + 1
-            predictedPrice = prediction[index]
+            predictedPrice = prediction[index][0]
             realPrice = real[index][0][0]
             predictedPrice_model_1 = prediction_model_1[index][0][0]
             predictedPrice_model_2 = prediction_model_2[index][0][0]
@@ -90,13 +90,13 @@ class Prediction(Resource):
                 "date": str(date),
                 "invested_price": price,
                 "yesterday_price": "{:.2f}".format(yesterdayPrice),
-                "predicted_price": "{0}".format(str(predictedPrice)),
+                "predicted_price": "{:.2f}".format(predictedPrice),
                 "real_price": "{:.2f}".format(realPrice),
                 "predicted_trend": predictedTrend,
                 "real_trend": realTrend,
-                "predicted_benifit": "{}".format(predictedBenifit),
+                "predicted_benifit": "{:.4f}".format(predictedBenifit),
                 "real_benifit": "{:.4f}".format(realBenifit),
-                "predicted_percentage_increase": "{}".format(predictedDiffPercentage),
+                "predicted_percentage_increase": "{:.2f}".format(predictedDiffPercentage),
                 "real_percentage_increase": "{:.4f}".format(realDiffPercentage),
                 "predicted_price_model2": "{:.2f}".format(predictedPrice_model_1),
                 "predicted_trend_model2": predictedTrend_model_1,
