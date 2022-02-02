@@ -39,7 +39,6 @@
 .demo-app .header .description .description-title {
   font-size: 24px;
   font-weight: bold;
-  text-align: justify;
   margin-bottom: 80px;
 }
 
@@ -51,7 +50,7 @@
 
 .demo-app .predictor-section {
   background: #26396B;
-  width: 1200px;
+  width: 800px;
   margin: 50px auto;
   border-radius: 15px;
   display: -ms-grid;

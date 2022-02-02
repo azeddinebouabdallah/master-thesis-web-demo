@@ -3,12 +3,15 @@ from flask import Flask
 from flask import jsonify
 from flask_restful import Api, Resource
 from flask_cors import CORS
+import scipy.stats as stats
+import math
 
 import numpy as np
 import pickle5 as pickle
 import random
 import pandas as pd
 import json
+import numpy as np
 
 app = Flask(__name__)
 api = Api(app)
@@ -19,12 +22,27 @@ class Prediction(Resource):
     def get(self, date, price):
         randI = random.randint(1, 10)
         print(randI)
+        with open("./output/adaboostlstmblockchain.pkl".format(randI), 'rb') as f:
+            prediction_1 = pickle.load(f)
         with open("./output/adaboostlstmall.pkl".format(randI), 'rb') as f:
-            prediction = pickle.load(f)
-        with open("./output/data_predict_model_1.pkl", 'rb') as f:
-            prediction_model_1 = pickle.load(f)
-        with open("./output/data_predict_model_2.pkl", 'rb') as f:
-            prediction_model_2 = pickle.load(f)
+            prediction_all = pickle.load(f)
+        with open("./output/adaboostlstmhashrate.pkl".format(randI), 'rb') as f:
+            prediction_2 = pickle.load(f)
+        with open("./output/adaboostlstmonlytrading.pkl".format(randI), 'rb') as f:
+            prediction_3 = pickle.load(f)
+        with open("./output/adaboostlstmsearchvolume.pkl".format(randI), 'rb') as f:
+            prediction_4 = pickle.load(f)
+        with open("./output/adaboostlstmsentiments.pkl".format(randI), 'rb') as f:
+            prediction_5 = pickle.load(f)
+        with open("./output/lstmblockchain.pkl".format(randI), 'rb') as f:
+            prediction_6 = pickle.load(f)
+        with open("./output/lstmonlytrading.pkl".format(randI), 'rb') as f:
+            prediction_7 = pickle.load(f)
+        with open("./output/lstmsearchvolume.pkl".format(randI), 'rb') as f:
+            prediction_8 = pickle.load(f)
+        with open("./output/lstmsentiments.pkl".format(randI), 'rb') as f:
+            prediction_9 = pickle.load(f)
+        
         with open("./real/data_real_{}.pkl".format(randI), 'rb') as f:
             real = pickle.load(f)
         with open("./dates/dates.pkl", 'rb') as f:
@@ -38,11 +56,22 @@ class Prediction(Resource):
             }
         else:
             index = dateIndexes[0] + 1
-            predictedPrice = prediction[index][0]
-            realPrice = real[index][0][0]
-            predictedPrice_model_1 = prediction_model_1[index][0][0]
-            predictedPrice_model_2 = prediction_model_2[index][0][0]
 
+            predictedPrice = prediction_all[index][0]
+            allPredictions = [prediction_1[index][0],prediction_2[index][0],prediction_3[index][0],prediction_4[index][0],prediction_5[index][0],prediction_6[index][0],prediction_7[index][0],prediction_8[index][0],prediction_9[index][0]]
+            realPrice = real[index][0][0]
+
+            mu = np.mean(allPredictions)
+            sigma = np.std(allPredictions)
+
+            x = np.linspace(mu - 400, mu + 400, 100)
+            y = stats.norm.pdf(x, mu, sigma)
+
+            
+            mu = mu[0]
+            sigma = sigma[0]
+            x = x.reshape(1, len(x))[0].tolist()
+            y = y.reshape(1, len(y))[0].tolist()
 
             yesterdayPrice = real[index-1][0][0]
             
@@ -59,33 +88,6 @@ class Prediction(Resource):
             realTrend = "up" if (realPrice - yesterdayPrice) > 0 else "down"
             predictedTrend = "up" if (predictedPrice - yesterdayPrice) > 0 else "down"
 
-
-            ## Model 2
-            realDiffPercentage_model_1 = ((realPrice * 100) / yesterdayPrice) - 100 
-            #realDiffPercentage = (realPrice - yesterdayPrice) / yesterdayPrice
-            predictedDiffPercentage_model_1 = ((predictedPrice_model_1 * 100) / yesterdayPrice) - 100
-            #predictedDiffPercentage = ( predictedPrice- yesterdayPrice) / yesterdayPrice
-            
-
-            realBenifit_model_1 = (float(price) * (realDiffPercentage_model_1))/100
-            predictedBenifit_model_1 = (float(price) * (predictedDiffPercentage_model_1))/100
-
-            realTrend_model_1 = "up" if (realPrice - yesterdayPrice) > 0 else "down"
-            predictedTrend_model_1 = "up" if (predictedPrice_model_1 - yesterdayPrice) > 0 else "down"
-
-            ## Model 3
-            realDiffPercentage_model_2 = ((realPrice * 100) / yesterdayPrice) - 100 
-            #realDiffPercentage = (realPrice - yesterdayPrice) / yesterdayPrice
-            predictedDiffPercentage_model_2 = ((predictedPrice_model_2 * 100) / yesterdayPrice) - 100
-            #predictedDiffPercentage = ( predictedPrice- yesterdayPrice) / yesterdayPrice
-            
-
-            realBenifit_model_2 = (float(price) * (realDiffPercentage_model_2))/100
-            predictedBenifit_model_2 = (float(price) * (predictedDiffPercentage_model_2))/100
-
-            realTrend_model_2 = "up" if (realPrice - yesterdayPrice) > 0 else "down"
-            predictedTrend_model_2 = "up" if (predictedPrice_model_2 - yesterdayPrice) > 0 else "down"
-
             return {
                 "date": str(date),
                 "invested_price": price,
@@ -98,14 +100,10 @@ class Prediction(Resource):
                 "real_benifit": "{:.4f}".format(realBenifit),
                 "predicted_percentage_increase": "{:.2f}".format(predictedDiffPercentage),
                 "real_percentage_increase": "{:.4f}".format(realDiffPercentage),
-                "predicted_price_model2": "{:.2f}".format(predictedPrice_model_1),
-                "predicted_trend_model2": predictedTrend_model_1,
-                "predicted_benifit_model2": "{:.4f}".format(predictedBenifit_model_1),
-                "predicted_percentage_increase_model2": "{:.4f}".format(predictedDiffPercentage_model_1),
-                "predicted_price_model3": "{:.2f}".format(predictedPrice_model_2),
-                "predicted_trend_model3": predictedTrend_model_2,
-                "predicted_benifit_model3": "{:.4f}".format(predictedBenifit_model_2),
-                "predicted_percentage_increase_model3": "{:.4f}".format(predictedDiffPercentage_model_2),
+                "x": x,
+                "y": y,
+                "mu": float(mu),
+                "sigma": float(sigma)
             }
 
 class ChartData(Resource):

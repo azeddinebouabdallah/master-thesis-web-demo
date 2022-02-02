@@ -6,9 +6,12 @@ import AddIcon from './icons/AddIcon'
 import MoreIcon from './icons/MoreIcon'
 import SubtractIcon from './icons/SubtractIcon'
 import React, { useEffect, useState } from "react"
-
+import { Chart as ChartJS, Tooltip, PointElement,CategoryScale, LinearScale, Title, LineElement, Legend } from 'chart.js';
 import Chart from "react-google-charts";
 import ApexCharts from 'apexcharts'
+
+import { Line, Chart as ChartJSS } from 'react-chartjs-2'
+ChartJS.register(CategoryScale, LinearScale, Tooltip, PointElement, LineElement, Title, Legend);
 function App() {
 
   const [priceInput, setPriceInput] = useState()
@@ -21,15 +24,12 @@ function App() {
   const [prediectedBenifit, setPredictedBenifit] = useState('')
   const [realBenifit, setRealBenifit] = useState('')
 
+  const [mu, setMu] = useState(0)
+  const [sigma, setSigma] = useState(0)
+  const [x, setX] = useState(0)
+  const [y , setY] = useState(0)
 
-  const [predictedPriceModel2, setPredictedPriceModel2] = useState('')
-  const [predictedTrendModel2, setPredictedTrendModel2] = useState('')
-  const [prediectedBenifitModel2, setPredictedBenifitModel2] = useState('')
-  const [predictedPriceModel3, setPredictedPriceModel3] = useState('')
-  const [predictedTrendModel3, setPredictedTrendModel3] = useState('')
-  const [prediectedBenifitModel3, setPredictedBenifitModel3] = useState('')
 
-  
 
   const [chartData, setChartData] = useState()
   const [loadedChart, setLoadedChart] = useState(false)
@@ -37,12 +37,12 @@ function App() {
   useEffect(() => {
     console.log()
     fetch(`http://127.0.0.1:5000/data/2020-04-23`)
-    .then(res => res.json())
-    .then(res => {
-      setChartData(res.data)
-      setLoadedChart(true)
-      document.getElementById("mydatepicker").defaultValue = "2020-01-15"; 
-    })
+      .then(res => res.json())
+      .then(res => {
+        setChartData(res.data)
+        setLoadedChart(true)
+        document.getElementById("mydatepicker").defaultValue = "2020-01-15";
+      })
   }, [])
 
   let onPriceAddClicked = () => {
@@ -64,31 +64,26 @@ function App() {
   let onPredictClick = (e) => {
     console.log(dateInput)
     console.log(priceInput)
-    fetch(`http://127.0.0.1:5000/prediction/${dateInput}/${priceInput}`, {mode: 'cors'})
-    .then(res => res.json())
-    .then(res => {
-      setYesterdayPrice(res.yesterday_price)
-      setPredictedPrice(res.predicted_price)
-      setRealPrice(res.real_price)
-      setRealTrend(res.real_trend)
-      setPredictedTrend(res.predicted_trend)
-      setPredictedBenifit(res.predicted_benifit)
-      setRealBenifit(res.real_benifit)
-
-      setPredictedPriceModel2(res.predicted_price_model2)
-      setPredictedTrendModel2(res.predicted_trend_model2)
-      setPredictedBenifitModel2(res.predicted_benifit_model2)
-      setPredictedPriceModel3(res.predicted_price_model3)
-      setPredictedTrendModel3(res.predicted_trend_model3)
-      setPredictedBenifitModel3(res.predicted_benifit_model3)
-    })
+    fetch(`http://127.0.0.1:5000/prediction/${dateInput}/${priceInput}`, { mode: 'cors' })
+      .then(res => res.json())
+      .then(res => {
+        setYesterdayPrice(res.yesterday_price)
+        setPredictedPrice(res.predicted_price)
+        setRealPrice(res.real_price)
+        setRealTrend(res.real_trend)
+        setPredictedTrend(res.predicted_trend)
+        setPredictedBenifit(res.predicted_benifit)
+        setRealBenifit(res.real_benifit)
+        setX(res.x)
+        setY(res.y)
+      })
 
     fetch(`http://127.0.0.1:5000/data/${dateInput}`)
-    .then(res => res.json())
-    .then(res => {
-      setChartData(res.data)
-      setLoadedChart(true)
-    })
+      .then(res => res.json())
+      .then(res => {
+        setChartData(res.data)
+        setLoadedChart(true)
+      })
   }
 
   let priceInputChange = (e) => {
@@ -113,7 +108,7 @@ function App() {
     height: 260,
     backgroundColor: '#E4E4E4',
     is3D: true
-};
+  };
   return (
     <div className="demo-app">
       <div className="header">
@@ -124,32 +119,32 @@ function App() {
         <div className="title">
           <h1 className='main-title'>Multimodal Approach <br />for Cryptocurrency Price <br /> Prediction. <span className='tag'>Master's thesis</span></h1>
           <div className='chart'>
-            {loadedChart ? 
-            <Chart
-              width={'90%'}
-              height={350}
-              chartType="CandlestickChart"
-              loader={<div>Loading Chart</div>}
-              data={chartData}
-              options={{
-                legend: 'none',
-                bar: { groupWidth: '100%' }, // Remove space between bars.
-                candlestick: {
-                  fallingColor: { strokeWidth: 0, fill: '#e74c3c' }, // red
-                  risingColor: { strokeWidth: 0, fill: '#2ecc71' }, // green
-                  
-                },
-                backgroundColor: "#ecf0f1",
-              }}
-              rootProps={{ 'data-testid': '2' }}
-            />: <p>Loading chart</p>
-          }
+            {loadedChart ?
+              <Chart
+                width={'90%'}
+                height={350}
+                chartType="CandlestickChart"
+                loader={<div>Loading Chart</div>}
+                data={chartData}
+                options={{
+                  legend: 'none',
+                  bar: { groupWidth: '100%' }, // Remove space between bars.
+                  candlestick: {
+                    fallingColor: { strokeWidth: 0, fill: '#e74c3c' }, // red
+                    risingColor: { strokeWidth: 0, fill: '#2ecc71' }, // green
+
+                  },
+                  backgroundColor: "#ecf0f1",
+                }}
+                rootProps={{ 'data-testid': '2' }}
+              /> : <p>Loading chart</p>
+            }
           </div>
         </div>
         <div className="description">
           <h2 className='description-title'>
-            Submitted by: Azeddine Bouabdallah <br/>
-            First supervisor: Prof. Dr. Jan Jurjens <br/>
+            Submitted by: Azeddine Bouabdallah <br /><br />
+            First supervisor: Prof. Dr. Jan Jürjens <br /><br />
             Second supervisor: Dr. Zeyd Boukhers
           </h2>
         </div>
@@ -163,28 +158,28 @@ function App() {
           </div>
           <div className='form-input'>
             <div className='form-input-container'>
-            <div className='date'>
-              <input type="date" onFocus={_onFocus} onBlur={_onBlur} placeholder="Date" onChange={dateInputChange} min="2016-10-21" max="2021-01-08" id="mydatepicker"/>
-              <span><MoreIcon /></span>
-            </div>
-            <div className="number">
-              <span className="sub" onClick={onPriceSubClicked}><SubtractIcon /></span>
-              <input type='number' className="price-input" placeholder="Invested price" value={priceInput} onChange={priceInputChange}></input>
-              <span className="add" onClick={onPriceAddClicked}><AddIcon /></span>
-            </div>
-            <div className='submit-button'>
-              <div className='submit' onClick={onPredictClick}>
-                <p>Predict</p>
+              <div className='date'>
+                <input type="date" onFocus={_onFocus} onBlur={_onBlur} placeholder="Date" onChange={dateInputChange} min="2016-10-21" max="2021-01-08" id="mydatepicker" />
+                <span><MoreIcon /></span>
+              </div>
+              <div className="number">
+                <span className="sub" onClick={onPriceSubClicked}><SubtractIcon /></span>
+                <input type='number' className="price-input" placeholder="Invested price" value={priceInput} onChange={priceInputChange}></input>
+                <span className="add" onClick={onPriceAddClicked}><AddIcon /></span>
+              </div>
+              <div className='submit-button'>
+                <div className='submit' onClick={onPredictClick}>
+                  <p>Predict</p>
+                </div>
               </div>
             </div>
           </div>
-          </div>
         </div>
         <div className="prediction-output">
-          {/* My model's output*/ }
+          {/* My model's output*/}
           <div className="outputs">
             <div className="output-titles">
-             <p><span>Model</span></p>
+              <p><span>Model</span></p>
               <p><span>Previous date price</span></p>
               <p><span>Predicted price</span></p>
               <p><span>Predicted trend</span></p>
@@ -198,16 +193,44 @@ function App() {
               <p className="btc-benifits">{yesterdayPrice}$</p>
               <p className={predictedTrend === "up" ? "btc-price-up" : "btc-price-down"}>{predictedPrice}$</p>
               <p className={predictedTrend === "up" ? "btc-trend-up" : "btc-trend-down"}>{predictedTrend}</p>
-              <p className={realTrend === 'up' ? "btc-price-up": "btc-price-down"}>{realPrice}$</p>
-              <p className={realTrend === 'up' ? "btc-trend-up": "btc-trend-down"}>{realTrend}</p>
+              <p className={realTrend === 'up' ? "btc-price-up" : "btc-price-down"}>{realPrice}$</p>
+              <p className={realTrend === 'up' ? "btc-trend-up" : "btc-trend-down"}>{realTrend}</p>
               <p className="btc-benifits">{prediectedBenifit}$</p>
               <p className="btc-benifits">{realBenifit}$</p>
             </div>
           </div>
           <div>
-            
+            <Line
+              data={
+                {
+                  labels: x,
+                  datasets: [
+                    {
+                      label: "Price in USD",
+                      data: y,
+                    },
+                  ],
+                  backgroundColor: '#2980b9',
+                }
+              }
+              options={
+                {
+                  plugins: {
+                    title: {
+                      display: true,
+                      text: "Cryptocurrency price prediction"
+                    },
+                    legend: {
+                      display: true,
+                      position: "bottom"
+                   }, 
+                   
+                  }
+                }
+              }
+            />
           </div>
-          
+
         </div>
       </div>
     </div>
