@@ -6,12 +6,12 @@ import AddIcon from './icons/AddIcon'
 import MoreIcon from './icons/MoreIcon'
 import SubtractIcon from './icons/SubtractIcon'
 import React, { useEffect, useState } from "react"
-import { Chart as ChartJS, Tooltip, PointElement,CategoryScale, LinearScale, Title, LineElement, Legend } from 'chart.js';
+import { Chart as ChartJS, Tooltip, PointElement,CategoryScale, LinearScale, Title, LineElement, Legend, Filler } from 'chart.js';
 import Chart from "react-google-charts";
 import ApexCharts from 'apexcharts'
 
 import { Line, Chart as ChartJSS } from 'react-chartjs-2'
-ChartJS.register(CategoryScale, LinearScale, Tooltip, PointElement, LineElement, Title, Legend);
+ChartJS.register(CategoryScale, LinearScale, Tooltip, PointElement, LineElement, Title, Legend, Filler);
 function App() {
 
   const [priceInput, setPriceInput] = useState()
@@ -200,7 +200,8 @@ function App() {
             </div>
           </div>
           <div>
-            <Line
+            <ChartJSS
+              type='line'
               data={
                 {
                   labels: x,
@@ -208,9 +209,12 @@ function App() {
                     {
                       label: "Price in USD",
                       data: y,
+                      fill: true,
+                      backgroundColor: "rgba(236, 240, 241,0.4)",
                     },
                   ],
                   backgroundColor: '#2980b9',
+                  borderColor: '#2980b9',
                 }
               }
               
@@ -219,15 +223,31 @@ function App() {
                   plugins: {
                     title: {
                       display: true,
-                      text: "Cryptocurrency price prediction"
+                      text: "Cryptocurrency price prediction", 
+                      color: 'white',
                     },
                     legend: {
                       display: true,
-                      position: "bottom"
-                   }
+                      position: "bottom",
+                      color: 'white',
+                   },
                   },
+                  showLine: true,
+                  fill: "#ecf0f1",
                   backgroundColor: "#ecf0f1",
-                  
+                  borderColor: "#ecf0f1",
+                 scales: {
+                   y :{
+                     ticks:{
+                       color: "white"
+                     }
+                   },
+                   x: {
+                      ticks: {
+                        color: "white"
+                      }
+                   }
+                 }
                 }
               }
             />
