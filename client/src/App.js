@@ -213,9 +213,7 @@ function App() {
                   backgroundColor: '#2980b9',
                 }
               }
-              height={"100px"}
-              width={null}
-
+              
               options={
                 {
                   plugins: {
@@ -226,10 +224,10 @@ function App() {
                     legend: {
                       display: true,
                       position: "bottom"
-                   }, 
-                   
+                   }
                   },
                   backgroundColor: "#ecf0f1",
+                  
                 }
               }
             />
