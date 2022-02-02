@@ -213,6 +213,9 @@ function App() {
                   backgroundColor: '#2980b9',
                 }
               }
+              height={"100px"}
+              width={null}
+
               options={
                 {
                   plugins: {
@@ -225,7 +228,8 @@ function App() {
                       position: "bottom"
                    }, 
                    
-                  }
+                  },
+                  backgroundColor: "#ecf0f1",
                 }
               }
             />
